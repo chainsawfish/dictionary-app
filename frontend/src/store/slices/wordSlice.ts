@@ -1,18 +1,20 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-const BASE_URL: String = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/'
-const API_KEY: String = 'e67ed205-818b-4000-b245-5dc08795402a'
+import axios from "axios";
+const BASE_URL: string = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup'
+const API_KEY: string = 'dict.1.1.20230426T072642Z.a57083466a2d9328.75ef34d10887073fed3f6e60e29307321d8d0dd8'
 
-export const fetchWord = createAsyncThunk(
-    'fetchWord', async (word: String) => {
-        const response = await fetch(`${BASE_URL}?key=${API_KEY}`)
-        return await response.json() as Object
-    }
-)
+export const fetchWord = createAsyncThunk('wordSlice/fetchWord',
+    async (word: string) => {
+        const response = await axios.get(`${BASE_URL}?key=${API_KEY}&lang=en-ru&text=${word}`)
+        return response?.data
+    })
+
 
 const wordSlice = createSlice({
     name: 'wordSlice',
     initialState: {
-        favorites: []
+        favorites: [],
+        result: null,
     },
     reducers: {
         saveWords(state, actions) {
@@ -20,9 +22,19 @@ const wordSlice = createSlice({
         },
         loadWords(state) {
             // load from localStorage
+        },
+        setResult(state, action) {
+            state.result = action.payload
         }
-    }
+    },
+    extraReducers:
+        (builder) => {
+        builder.addCase(fetchWord.fulfilled, (state, action) => {
+        state.result = action.payload
+        })
+}
+
 })
 
-export const {saveWords, loadWords} = wordSlice.actions
+export const {setResult, loadWords} = wordSlice.actions
 export default wordSlice.reducer;
