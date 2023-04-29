@@ -1,14 +1,23 @@
 import React from 'react';
+// @ts-ignore
+import starBw from "../assets/star-bw.svg"
 
-const Word = ({wordText, wordType, definition }) => {
-    const starBw = require('../assets/star-bw.svg') as string;
-    const starYellow = require('../assets/star-yellow.svg') as string;
+interface IWordProps {
+    wordText: string,
+    wordType?: string,
+    definition?: string,
+    detailed?: boolean,
+}
+const Word = ({wordText, wordType, definition, detailed}: IWordProps) => {
     return (
         <div className="flex gap-3 p-1 items-baseline">
             <span className="text-2xl">{wordText}</span>
-            <span className="italic">{wordType}</span>
-            <span>{definition}</span>
-            <span><img src={starBw} width="20px" alt="star-black-white"/> </span>
+            {detailed && <>
+                <span className="italic">{wordType}</span>
+                <span>{definition}</span>
+                <span><img src={starBw} width="20px" alt="star-black-white"/> </span>
+            </>
+            }
         </div>
     );
 };

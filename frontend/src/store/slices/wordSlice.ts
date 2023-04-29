@@ -22,15 +22,12 @@ const wordSlice = createSlice({
         result: null,
     },
     reducers: {
-        saveWords(state, actions) {
-            state.favorites.push(actions.payload)
+        saveWords(state, action) {
+            state.favorites.push(action.payload)
         },
         loadWords(state) {
             // load from localStorage
         },
-        setResult(state, action) {
-            state.result = action.payload
-        }
     },
     extraReducers:
         (builder) => {
@@ -41,5 +38,5 @@ const wordSlice = createSlice({
 
 })
 
-export const {setResult, loadWords} = wordSlice.actions
+export const {saveWords,loadWords} = wordSlice.actions
 export default wordSlice.reducer;
