@@ -1,7 +1,6 @@
 import React from 'react'
 import Word from "./Word";
 import {nanoid} from "@reduxjs/toolkit";
-import {sortWords} from "../utils/sortWords";
 
 interface IResultsProps {
     words: string[] | any
@@ -30,7 +29,7 @@ const Results = ({words}: IResultsProps) => {
                 })
             }
         }
-        return sortWords(arr);
+        return arr;
     }
 
 

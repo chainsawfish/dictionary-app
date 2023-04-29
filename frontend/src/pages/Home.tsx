@@ -4,6 +4,8 @@ import {ThunkDispatch} from "@reduxjs/toolkit";
 import {debounce} from "../utils/debounce";
 import {fetchWord} from "../store/slices/wordSlice";
 import Results from "../components/Results";
+import starYellow from "../assets/star-yellow.svg";
+
 
 const Home = () => {
     const [text, setText] = useState<string>("");
@@ -11,14 +13,14 @@ const Home = () => {
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
     const handleTextChange = (e) => {
-        setText(e.target.value)
-    }
+        setText(e.target.value);
+    };
 
     const handleDebounce = debounce(() => {
         if (text.length > 0) {
-            dispatch(fetchWord(text))
+            dispatch(fetchWord(text));
         }
-    }, 500)
+    }, 500);
 
     const onButtonClick = (e) => {
         e.preventDefault();
@@ -29,21 +31,31 @@ const Home = () => {
 
     return (
         <>
-            <div className="w-{600px} border-2">
 
-                <form onSubmit={onButtonClick} className="flex justify-center m-4">
-                    <input type="text" onChange={handleTextChange} onKeyUp={handleDebounce}
-                           className="border-2 rounded-md text-3xl"/>
-                    <button type="submit" className="border-2 p-2 bg-green-700 text-white rounded-md ">Find</button>
+            <div
+                className="flex col p-1 w-full justify-between align-middle h-[50px] bg-blue-500 text-2xl font-semibold text-white">
+                <div>BIG Dictionary</div>
+                <div className="flex col items-center">
+                    <img src={starYellow} alt="starred" className=" p-1" width="30px"/>
+                    <span>Favorite words</span>
+                </div>
+            </div>
+
+            <div className="flex row w-full ">
+                <form onSubmit={onButtonClick} className="flex col items-baseline w-[300px] bg-blue-400" >
+                    <input type="text" onChange={handleTextChange} placeholder="Start typing word..."
+                           onKeyUp={handleDebounce}
+                           className="h-[50px] m-2 p-2 flex row justify-center"/>
+                    <button type="submit" className="bg-blue-400 h-[50px] w-[60px] text-white">FIND</button>
                 </form>
-
-                <div className="flex-col mx-auto w-fit">
+                <div className="mx-auto p-2 w-screen">
                     <Results words={result}/>
                 </div>
-
             </div>
+
+
         </>
     );
-}
+};
 
 export default Home;

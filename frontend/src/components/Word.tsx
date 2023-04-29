@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-ignore
 import starBw from "../assets/star-bw.svg"
 
 interface IWordProps {
@@ -10,12 +9,12 @@ interface IWordProps {
 }
 const Word = ({wordText, wordType, definition, detailed}: IWordProps) => {
     return (
-        <div className="flex gap-3 p-1 items-baseline">
-            <span className="text-2xl">{wordText}</span>
+        <div className="flex gap-4 p-2 items-baseline bg-amber-50 border-2 m-2">
+            <span className="font-bold w-[200px]">{wordText}</span>
             {detailed && <>
                 <span className="italic">{wordType}</span>
-                <span>{definition}</span>
-                <span><img src={starBw} width="20px" alt="star-black-white"/> </span>
+                <span className="w-full">{definition}</span>
+                <span className="w-[30px]"><img src={starBw}  alt="star-black-white"/> </span>
             </>
             }
         </div>
