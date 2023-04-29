@@ -15,7 +15,7 @@ const Home = () => {
     }
 
     const handleDebounce = debounce(() => {
-        dispatch(fetchWord(text))
+        if (text) {dispatch(fetchWord(text))}
     }, 500)
 
     const onButtonClick = (e) => {
