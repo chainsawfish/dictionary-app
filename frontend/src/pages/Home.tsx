@@ -33,16 +33,16 @@ const Home = () => {
         <>
 
             <div
-                className="flex col p-1 w-full justify-between align-middle h-[50px] bg-blue-500 text-2xl font-semibold text-white">
+                className="flex col p-2 w-full justify-between align-middle h-[50px] bg-blue-500 text-2xl font-semibold text-white">
                 <div>BIG Dictionary</div>
-                <div className="flex col items-center">
-                    <img src={starYellow} alt="starred" className=" p-1" width="30px"/>
+                <div className="flex col items-center p-2">
+                    <img src={starYellow} alt="starred" className="p-1" width="30px"/>
                     <span>Favorite words</span>
                 </div>
             </div>
 
             <div className="flex row w-full ">
-                <form onSubmit={onButtonClick} className="flex col items-baseline w-[300px] bg-blue-400" >
+                <form onSubmit={onButtonClick} className="flex col items-baseline w-[300px] bg-blue-400 min-h-screen" >
                     <input type="text" onChange={handleTextChange} placeholder="Start typing word..."
                            onKeyUp={handleDebounce}
                            className="h-[50px] m-2 p-2 flex row justify-center"/>

@@ -14,7 +14,7 @@ const Word = ({wordText, wordType, definition, detailed}: IWordProps) => {
             {detailed && <>
                 <span className="italic">{wordType}</span>
                 <span className="w-full">{definition}</span>
-                <span className="w-[30px]"><img src={starBw}  alt="star-black-white"/> </span>
+                <span className="w-[30px]"><img src={starBw} alt="star-black-white"/> </span>
             </>
             }
         </div>

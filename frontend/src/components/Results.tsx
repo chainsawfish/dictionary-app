@@ -1,42 +1,39 @@
-import React from 'react'
+import React, {useEffect, useState} from "react";
+import {sortWords} from "../utils/sortWords";
 import Word from "./Word";
-import {nanoid} from "@reduxjs/toolkit";
 
 interface IResultsProps {
-    words: string[] | any
+    words: any[];
 }
 
 const Results = ({words}: IResultsProps) => {
-    console.log(words)
-    console.log(words?.length)
-    const arrayWords = () => {
-        let arr = []
+    const [wordsArr, setWordsArr] = useState([]);
+    console.log(words);
+    useEffect(() => {
+        let arr = [];
 
         if (words && Array.isArray(words)) {
-            if (words.length < 15) {
-                words?.map((word) => {
-                    return (
-                        arr.push(<Word key={nanoid()} wordText={word?.hwi?.hw} wordType={word?.fl}
-                                       definition={word?.shortdef} detailed/>)
-                    )
-                })
-            }
-            if (words.length > 15) {
-                words?.map((word) => {
-                    return (
-                        arr.push(<Word key={nanoid()} wordText={word}/>)
-                    )
-                })
-            }
+            words?.map((word) => {
+                return (
+                    arr.push({
+                        wordText: words.length < 15 ? word?.hwi?.hw : word,
+                        wordType: word?.fl ?? null,
+                        definition: word?.shortdef ?? null,
+                        detailed: !!word?.shortdef,
+                    })
+                );
+            });
         }
-        return arr;
-    }
+        setWordsArr(arr);
+    }, [words]);
 
 
     return (
-        <div>
-            {arrayWords() && arrayWords()}
-        </div>
+        <>
+            {wordsArr.map((word: any, index) => {
+                return <Word key={index} wordText={word.wordText} wordType={word?.wordType} definition={word?.definition} detailed={word.detailed}/>
+            }) }
+        </>
     );
 };
 
