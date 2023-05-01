@@ -20,11 +20,13 @@ const Results = ({words}: IResultsProps) => {
                         wordType: word?.fl ?? null,
                         definition: word?.shortdef ?? null,
                         detailed: !!word?.shortdef,
+                        starred: false,
                     })
                 );
             });
         }
         setWordsArr(sortWords(arr));
+
     }, [words]);
 
 

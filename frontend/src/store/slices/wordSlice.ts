@@ -18,13 +18,20 @@ export const fetchWord = createAsyncThunk('wordSlice/fetchWord',
 const wordSlice = createSlice({
     name: 'wordSlice',
     initialState: {
-        favorites: [],
+        favorites: [] ,
         result: null,
     },
     reducers: {
-        saveWords(state, action) {
+        addStarred(state, action) {
             state.favorites.push(action.payload)
         },
+        removeStarred(state, action) {
+            state.favorites.filter(word => word.wordText !== action.payload.wordText)
+        },
+        getStarred(state) {
+            return state.favorites
+},
+
         loadWords(state) {
             // load from localStorage
         },
@@ -38,5 +45,5 @@ const wordSlice = createSlice({
 
 })
 
-export const {saveWords,loadWords} = wordSlice.actions
+export const {addStarred, removeStarred, getStarred} = wordSlice.actions
 export default wordSlice.reducer;
