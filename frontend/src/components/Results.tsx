@@ -24,7 +24,7 @@ const Results = ({words}: IResultsProps) => {
                 );
             });
         }
-        setWordsArr(arr);
+        setWordsArr(sortWords(arr));
     }, [words]);
 
 
