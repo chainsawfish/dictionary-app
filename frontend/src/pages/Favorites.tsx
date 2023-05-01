@@ -10,6 +10,7 @@ const Favorites = () => {
     const [words, setWords] = useState([]);
     useEffect(() => {
         setWords(favorites as object[])
+        console.log({favorites})
     }, [favorites]);
 
     return (
@@ -18,8 +19,8 @@ const Favorites = () => {
                 <SearchInput/>
                 <div className="mx-auto p-2 w-screen">
                     {words.map(word => {
-                        return <Word key={nanoid()} wordText={word.props.wordText} wordType={word?.props.wordType}
-                                     definition={word?.props.definition} detailed={word.props.detailed} starred={true}/>
+                        return <Word key={nanoid()} wordText={word.wordText} wordType={word?.wordType}
+                                     definition={word?.definition} detailed={word.detailed} starred={true}/>
                     })}
                 </div>
             </div>

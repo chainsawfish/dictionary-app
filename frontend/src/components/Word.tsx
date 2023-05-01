@@ -19,7 +19,7 @@ const Word = (props: IWordProps) => {
 
     const handleStar = () => {
         setIsStarred(!isStarred)
-        dispatch(!isStarred ? addStarred({props}) : removeStarred({props}))
+        dispatch(!isStarred ? addStarred({...props}) : removeStarred({...props}))
     }
 
     return (

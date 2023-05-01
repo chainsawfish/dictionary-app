@@ -14,10 +14,12 @@ export const fetchWord = createAsyncThunk('wordSlice/fetchWord',
         return response?.data
     })
 
-
+interface IState {
+    initialState: object,
+}
 const wordSlice = createSlice({
     name: 'wordSlice',
-    initialState: {
+    initialState:  {
         favorites: [] ,
         result: null,
     },
@@ -26,9 +28,9 @@ const wordSlice = createSlice({
             state.favorites.push(action.payload)
         },
         removeStarred(state, action) {
-            state.favorites.filter(word => word.wordText !== action.payload.wordText)
+            state.favorites = state.favorites.filter(word => word.wordText !== action.payload.wordText)
         },
-        getStarred(state) {
+        getStarred(state ) {
             return state.favorites
 },
 
