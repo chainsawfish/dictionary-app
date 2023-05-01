@@ -17,35 +17,31 @@ export const fetchWord = createAsyncThunk('wordSlice/fetchWord',
 interface IState {
     initialState: object,
 }
+
 const wordSlice = createSlice({
     name: 'wordSlice',
-    initialState:  {
-        favorites: [] ,
+    initialState: {
+        favorites: [],
         result: null,
     },
     reducers: {
         addStarred(state, action) {
-            state.favorites.push(action.payload)
+            state.favorites.push({...action.payload, order: state.favorites.length})
         },
         removeStarred(state, action) {
             state.favorites = state.favorites.filter(word => word.wordText !== action.payload.wordText)
         },
-        getStarred(state ) {
-            return state.favorites
-},
-
         loadWords(state) {
-            // load from localStorage
         },
     },
     extraReducers:
         (builder) => {
-        builder.addCase(fetchWord.fulfilled, (state, action) => {
-        state.result = action.payload
-        })
-}
+            builder.addCase(fetchWord.fulfilled, (state, action) => {
+                state.result = action.payload
+            })
+        }
 
 })
 
-export const {addStarred, removeStarred, getStarred} = wordSlice.actions
+export const {addStarred, removeStarred} = wordSlice.actions
 export default wordSlice.reducer;

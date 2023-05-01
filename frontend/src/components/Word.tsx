@@ -3,16 +3,11 @@ import {useDispatch} from "react-redux";
 import {addStarred, removeStarred} from "../store/slices/wordSlice";
 import starBw from "../assets/star-bw.svg"
 import starYellow from "../assets/star-yellow.svg"
+import {IWords} from "../interfaces";
 
-interface IWordProps {
-    wordText: string,
-    wordType?: string,
-    definition?: string,
-    detailed?: boolean,
-    starred?: boolean,
-}
 
-const Word = (props: IWordProps) => {
+
+const Word = (props: IWords) => {
     const {wordText, wordType, definition, detailed, starred} = props;
     const dispatch = useDispatch()
     const [isStarred, setIsStarred] = useState(starred);
@@ -23,7 +18,7 @@ const Word = (props: IWordProps) => {
     }
 
     return (
-        <div className="flex gap-4 p-2 items-baseline bg-amber-50 border-2 rounded-sm m-2">
+        <div className="flex gap-4 p-2 items-baseline bg-amber-50 border-2 rounded-sm m-2" >
             <span className="font-bold w-[200px]">{wordText}</span>
             {detailed && <>
                 <span className="italic">{wordType}</span>

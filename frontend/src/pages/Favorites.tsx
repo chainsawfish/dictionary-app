@@ -8,10 +8,26 @@ import Word from "../components/Word";
 const Favorites = () => {
     const favorites = useSelector<RootState>(state => state.wordSlice.favorites)
     const [words, setWords] = useState([]);
+    const [currentWord, setCurrentWord] = useState<object>({});
+
     useEffect(() => {
         setWords(favorites as object[])
         console.log({favorites})
     }, [favorites]);
+
+    const handleDragStart = (e, word) => {
+        setCurrentWord(word)
+    }
+
+    const handleDragOver = (e) => {
+        e.preventDefault()
+        e.target.style.background = 'red'
+    }
+
+    const handleDrop = (e, word) => {
+        e.preventDefault()
+        e.target.style.background = 'white'
+    }
 
     return (
         <div>
@@ -19,8 +35,15 @@ const Favorites = () => {
                 <SearchInput/>
                 <div className="mx-auto p-2 w-screen">
                     {words.map(word => {
-                        return <Word key={nanoid()} wordText={word.wordText} wordType={word?.wordType}
-                                     definition={word?.definition} detailed={word.detailed} starred={true}/>
+                        return (
+                            <div key={nanoid()} draggable
+                                 onDragStart={(e) => handleDragStart(e, word)}
+                                 onDragOver={(e) => handleDragOver(e)}
+                            onDrop={(e) => handleDrop(e, word)}>
+                            <Word  wordText={word.wordText} wordType={word?.wordType}
+                                     definition={word?.definition} detailed={word.detailed} starred={true} />
+                            </div>
+                        )
                     })}
                 </div>
             </div>
