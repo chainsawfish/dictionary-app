@@ -14,22 +14,20 @@ export const fetchWord = createAsyncThunk('wordSlice/fetchWord',
         return response?.data
     })
 
-interface IState {
-    initialState: object,
-}
-
 const wordSlice = createSlice({
     name: 'wordSlice',
     initialState: {
         favorites: [],
         result: null,
+        order: 0,
     },
     reducers: {
         addStarred(state, action) {
-            state.favorites.push({...action.payload, order: state.favorites.length})
+            state.favorites.push({...action.payload, order: state.order});
+            state.order = state.order + 1;
         },
         removeStarred(state, action) {
-            state.favorites = state.favorites.filter(word => word.wordText !== action.payload.wordText)
+            state.favorites = state.favorites.filter(word => word.wordText !== action.payload.wordText);
         },
         loadWords(state) {
         },
@@ -37,7 +35,7 @@ const wordSlice = createSlice({
     extraReducers:
         (builder) => {
             builder.addCase(fetchWord.fulfilled, (state, action) => {
-                state.result = action.payload
+                state.result = action.payload;
             })
         }
 

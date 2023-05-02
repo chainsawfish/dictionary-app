@@ -8,7 +8,7 @@ import Word from "../components/Word";
 const Favorites = () => {
     const favorites = useSelector<RootState>(state => state.wordSlice.favorites)
     const [words, setWords] = useState([]);
-    const [currentWord, setCurrentWord] = useState<object>({});
+    const [currentWord, setCurrentWord] = useState<any>({});
 
     useEffect(() => {
         setWords(favorites as object[])
@@ -21,12 +21,23 @@ const Favorites = () => {
 
     const handleDragOver = (e) => {
         e.preventDefault()
-        e.target.style.background = 'red'
+    }
+
+    const handleDragLeave = (e) => {
+        e.preventDefault()
     }
 
     const handleDrop = (e, word) => {
         e.preventDefault()
-        e.target.style.background = 'white'
+        let currentOrder = currentWord.order
+        let newOrder = word.order
+
+        sortByOrder()
+
+    }
+
+    const sortByOrder = () => {
+        setWords(prevState => prevState.sort((a,b)=> a.order - b.order))
     }
 
     return (
@@ -39,6 +50,7 @@ const Favorites = () => {
                             <div key={nanoid()} draggable
                                  onDragStart={(e) => handleDragStart(e, word)}
                                  onDragOver={(e) => handleDragOver(e)}
+                                 onDragLeave={(e) => handleDragLeave(e)}
                             onDrop={(e) => handleDrop(e, word)}>
                             <Word  wordText={word.wordText} wordType={word?.wordType}
                                      definition={word?.definition} detailed={word.detailed} starred={true} />
