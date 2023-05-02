@@ -31,7 +31,15 @@ const Favorites = () => {
         e.preventDefault()
         let currentOrder = currentWord.order
         let newOrder = word.order
-
+        setWords(words.map((w) => {
+            if (w.wordText === word.wordText) {
+                w.order = currentOrder
+            }
+            if (w.wordText === currentWord.wordText) {
+                w.order = newOrder
+            }
+            return w
+        }) )
         sortByOrder()
 
     }
